@@ -1,6 +1,6 @@
 # source aliases
-source /home/tebby24/.config/bash/aliases
-source /home/tebby24/.config/bash/variables
+source $HOME/.config/zsh/aliases
+source $HOME/.config/zsh/variables
 
 # update PATH
 export PATH="$HOME/bin/scripts:$PATH"
