@@ -3,7 +3,7 @@
 install `git` and GNU `stow`
 clone into $HOME directory
 ```bash
-git clone https://github.com/ChristianChiarulli/machfiles.git ~/.dotfiles`
+git clone https://github.com/tebby24/linux-dotfiles ~/.dotfiles`
 ```
 Run `stow` to symlink everything or just select what you want
 ```bash
