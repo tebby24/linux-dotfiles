@@ -1,5 +1,5 @@
 # tebby24's linux dotfiles
-## Installation
+## installation
 install `git` and GNU `stow`<br>
 clone into $HOME directory
 ```bash
