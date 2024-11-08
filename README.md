@@ -1,7 +1,7 @@
 # tebby24's linux dotfiles
 ## installation
 install `git` and GNU `stow`<br>
-clone into $HOME directory
+clone into ~/.dotfiles
 ```bash
 git clone https://github.com/tebby24/linux-dotfiles ~/.dotfiles`
 ```
