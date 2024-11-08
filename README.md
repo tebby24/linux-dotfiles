@@ -1,7 +1,14 @@
+# tebby24's linux dotfiles
+## Installation
 install `git` and GNU `stow`
 clone into $HOME directory
-`git clone https://github.com/ChristianChiarulli/machfiles.git ~/.dotfiles`
-
-run `stow` */ # Everything (the '/' ignores the README)
-`stow */ # (the '/' ignores the README)`
+```bash
+git clone https://github.com/ChristianChiarulli/machfiles.git ~/.dotfiles`
+```
+Run `stow` to symlink everything or just select what you want
+```bash
+stow */ # (the '/' ignores the README)
+```
+```bash
 stow zsh # zsh config only
+```
