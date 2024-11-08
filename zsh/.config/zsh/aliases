@@ -1,0 +1,8 @@
+# ls
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# random commands
+alias printpath='echo "$PATH" | tr ":" "\n"'
+alias tms='tmux-sessionizer'

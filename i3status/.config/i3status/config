@@ -1,0 +1,48 @@
+# i3status configuration file
+
+general {
+        colors = false
+        interval = 1
+}
+
+order += "disk /"
+order += "wireless wlp3s0"
+# order += "cpu_usage"
+order += "battery all"
+order += "tztime date"
+order += "tztime time"
+
+cpu_usage {
+        format = "CPU: %usage"
+}
+
+disk "/" {
+        format = " %avail"
+}
+
+wireless wlp3s0 {
+        format_up = " %essid"
+        format_down = "󰤯"
+}
+
+battery all {
+	format = "%status %percentage"
+	format_down = ""
+	last_full_capacity = true
+	integer_battery_capacity = true
+	low_threshold = 11
+	threshold_type = percentage
+	hide_seconds = true
+	status_chr = ""
+	status_bat = ""
+	status_unk = ""
+	status_full = ""
+}
+
+tztime date {
+        format = "󰃭 %Y/%m/%d"
+}
+
+tztime time {
+        format = " %I:%M  "
+}

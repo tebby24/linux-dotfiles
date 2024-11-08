@@ -1,0 +1,34 @@
+# source aliases
+source /home/tebby24/.config/bash/aliases
+source /home/tebby24/.config/bash/variables
+
+# update PATH
+export PATH="$HOME/bin/scripts:$PATH"
+
+# update environment variables
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+unsetopt beep
+bindkey -v
+# End of lines configured by zsh-newuser-install
+
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/tebby24/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+
+# prompt
+NEWLINE=$'\n'
+PROMPT="%F{183}%n%f:%F{111}%~%f${NEWLINE}$ "
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Remove duplicates from the PATH environment variable
+export PATH=$(echo $PATH | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':')
