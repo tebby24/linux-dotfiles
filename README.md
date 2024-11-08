@@ -12,7 +12,7 @@ stow */ # (the '/' ignores the README)
 ```bash
 stow zsh # zsh config only
 ```
-to install packages, `stow packages`<br>, then run the following
+to install packages, `stow packages`, then run the following
 ```bash
 sudo pacman -S --needed - < ~/.pacman.list
 ```
