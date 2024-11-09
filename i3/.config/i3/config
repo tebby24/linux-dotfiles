@@ -13,7 +13,7 @@
 exec_always --no-startup-id picom & 
 
 # run script handling screen layout and scaleing
-exec_always --no-startup-id /home/tebby24/.screenlayout/layout.sh
+exec_always --no-startup-id $HOME/.screenlayout/layout.sh
 
 # wallpaper
 exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/mai-sakurajima.png
