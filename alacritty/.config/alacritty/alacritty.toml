@@ -1,6 +1,6 @@
 [general]
 live_config_reload = true
-import = [ "/home/tebby24/.config/alacritty/themes/tokyo-night.toml" ]
+import = [ "~/.config/alacritty/themes/tokyo-night.toml" ]
 
 [window]
 padding.x = 4 
