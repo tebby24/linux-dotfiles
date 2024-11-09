@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Directory containing the rofi scripts
+SCRIPT_DIR="/$HOME/bin/rofi-scripts"
+
+# List all executable scripts in the directory
+scripts=$(find "$SCRIPT_DIR" -type f -executable -printf "%f\n")
+
+# Run rofi to select a script
+selected_script=$(echo "$scripts" | rofi -dmenu -p "Select Script")
+
+# If a selection was made, run the selected script
+if [ -n "$selected_script" ]; then
+    # Determine full path to the script
+    script_path="$SCRIPT_DIR/$selected_script"
+    
+    # Run the script in rofi's custom mode
+    rofi -show "${selected_script%-rofi-mode}" -modi "${selected_script%-rofi-mode}:$script_path"
+    #rofi -show "test-mode" -modi "test-mode:$script_path"
+fi
