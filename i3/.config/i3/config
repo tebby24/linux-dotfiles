@@ -16,7 +16,7 @@ exec_always --no-startup-id picom &
 exec_always --no-startup-id $HOME/.screenlayout/layout.sh
 
 # wallpaper
-exec_always --no-startup-id feh --bg-fill $HOME/Pictures/wallpapers/mai-sakurajima.png
+exec_always --no-startup-id set-wallpaper
 
 # Font for window titles
 font pango:Hack Nerd Font Mono 12
