@@ -16,7 +16,7 @@ exec_always --no-startup-id picom &
 exec_always --no-startup-id $HOME/.screenlayout/layout.sh
 
 # wallpaper
-exec_always --no-startup-id set-wallpaper
+exec_always --no-startup-id $HOME/bin/scripts/set-wallpaper
 
 # Font for window titles
 font pango:Hack Nerd Font Mono 12
