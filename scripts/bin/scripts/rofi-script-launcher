@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Directory containing the rofi scripts
-SCRIPT_DIR="/$HOME/bin/rofi-scripts"
+SCRIPT_DIR="$HOME/bin/rofi-scripts"
 
 # List all executable scripts in the directory
 scripts=$(find "$SCRIPT_DIR" -type f -executable -printf "%f\n")

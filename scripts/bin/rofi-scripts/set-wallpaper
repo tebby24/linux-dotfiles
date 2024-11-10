@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ "$(whoami)" = "tebby24" ]; then
-	feh --bg-fill "$HOME/Pictures/wallpapers/rei-ayanami.png"
-fi
-if [ "$(whoami)" = "qiyichen" ]; then
-	feh --bg-fill "$HOME/Pictures/wallpapers/mai-sakurajima.png"
-fi
