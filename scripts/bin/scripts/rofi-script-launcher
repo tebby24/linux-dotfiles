@@ -13,8 +13,5 @@ selected_script=$(echo "$scripts" | rofi -dmenu -p "Select Script")
 if [ -n "$selected_script" ]; then
     # Determine full path to the script
     script_path="$SCRIPT_DIR/$selected_script"
-    
-    # Run the script in rofi's custom mode
-    rofi -show "${selected_script%-rofi-mode}" -modi "${selected_script%-rofi-mode}:$script_path"
-    #rofi -show "test-mode" -modi "test-mode:$script_path"
+    bash "$script_path"
 fi
