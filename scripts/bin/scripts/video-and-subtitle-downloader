@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Check if yt-dlp is installed
+if ! command -v yt-dlp &> /dev/null; then
+    echo "yt-dlp is not installed. Please install it to use this script."
+    exit 1
+fi
+
+# Check if a URL is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <video_url>"
+    exit 1
+fi
+
+VIDEO_URL="$1"
+DOWNLOAD_DIR=~/Downloads
+
+# Fetch video information, including subtitles
+echo "Fetching available subtitles for the video..."
+yt-dlp --list-subs "$VIDEO_URL"
+
+# Prompt user to choose a subtitle language
+echo -n "Enter the language code of the subtitle you want to download (e.g., en, es, fr): "
+read -r SUB_LANG
+
+# Extract video title to name the download folder (allowing for Chinese and other Unicode characters)
+VIDEO_TITLE=$(yt-dlp --get-filename -o "%(title)s" "$VIDEO_URL")
+TARGET_DIR="$DOWNLOAD_DIR/$VIDEO_TITLE"
+
+# Create target directory if it doesn't exist
+mkdir -p "$TARGET_DIR"
+
+# Download the video and selected subtitles with resolution capped at 720p
+echo "Downloading video and subtitles..."
+yt-dlp -f 'bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4][height<=720]' \
+       --sub-lang "$SUB_LANG" \
+       --write-sub \
+       --sub-format "srt" \
+       --output "$TARGET_DIR/%(title)s.%(ext)s" \
+       "$VIDEO_URL"
+
+echo "Download completed! Files saved to $TARGET_DIR"
