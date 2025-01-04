@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/bin/zsh
+
+sleep 1  # Add a delay to allow screen configuration to settle
 
 if [ "$(whoami)" = "tebby24" ]; then
-	feh --bg-fill "$HOME/Pictures/wallpapers/rei-ayanami.png"
+    feh --bg-fill "$HOME/Pictures/wallpapers/rei-ayanami.png"
 fi
 if [ "$(whoami)" = "qiyichen" ]; then
-	feh --bg-fill "$HOME/Pictures/wallpapers/mai-sakurajima.png"
+    feh --bg-fill "$HOME/Pictures/wallpapers/mai-sakurajima.png"
 fi
+
