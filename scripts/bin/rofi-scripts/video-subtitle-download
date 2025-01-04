@@ -1,0 +1,117 @@
+#!/bin/bash
+
+# Function to sanitize filename for safe directory creation
+sanitize_filename() {
+    echo "$1" | sed 's/[^[:alnum:]_-、]/-/g'
+}
+
+# Function to extract subtitle languages using JSON output
+get_subtitle_languages() {
+    local url="$1"
+    yt-dlp --skip-download \
+           --dump-single-json \
+           --no-warnings \
+           "$url" | \
+    jq -r '.subtitles | keys[]'
+}
+
+# Function to get video title
+get_video_title() {
+    local url="$1"
+    yt-dlp --get-title "$url"
+}
+
+# Function to download video
+download_video() {
+    local url="$1"
+    local download_dir="$2"
+    local subtitle_lang="$3"
+
+    # Create download directory if it doesn't exist
+    mkdir -p "$download_dir"
+
+    notify-send "Download Started" "Downloading video..."
+
+    if [ -z "$subtitle_lang" ] || [ "$subtitle_lang" = "none" ]; then
+        # Download without subtitles
+        yt-dlp \
+            -f "bv*[height<=720]+ba/b[height<=720] / wv*+ba/w" \
+            --paths "home:$download_dir" \
+            --output "%(title)s.%(ext)s" \
+            --merge-output-format mp4 \
+            "$url"
+    else
+        # Download with selected subtitles
+        yt-dlp \
+            -f "bv*[height<=720]+ba/b[height<=720] / wv*+ba/w" \
+            --write-sub \
+            --sub-lang "$subtitle_lang" \
+            --paths "home:$download_dir" \
+            --output "%(title)s.%(ext)s" \
+            --merge-output-format mp4 \
+            "$url"
+    fi
+
+    return $?
+}
+
+# Check if required commands are installed
+for cmd in rofi yt-dlp jq; do
+    if ! command -v "$cmd" >/dev/null 2>&1; then
+        notify-send "Error" "$cmd is not installed"
+        exit 1
+    fi
+done
+
+# Prompt for YouTube URL using rofi
+url=$(rofi -dmenu -p "Enter YouTube URL" -l 0)
+
+# Exit if no URL provided
+if [ -z "$url" ]; then
+    exit 0
+fi
+
+# Get video title
+title=$(get_video_title "$url")
+if [ -z "$title" ]; then
+    notify-send "Error" "Could not fetch video title"
+    exit 1
+fi
+
+# Create sanitized directory name
+sanitized_title=$(sanitize_filename "$title")
+download_dir="$HOME/immersion/temp/$sanitized_title"
+
+# Get available subtitle languages
+subtitle_languages=$(get_subtitle_languages "$url")
+
+if [ -z "$subtitle_languages" ]; then
+    # No subtitles available, ask if user wants to download video anyway
+    download_anyway=$(echo -e "yes\nno" | rofi -dmenu -p "No subtitles available. Download video anyway?" -l 2)
+    
+    if [ "$download_anyway" = "yes" ]; then
+        download_video "$url" "$download_dir"
+    else
+        exit 0
+    fi
+else
+    # Show subtitle language selection in rofi
+    # Add "none" option for no subtitles
+    selected_language=$(echo -e "none\n$subtitle_languages" | rofi -dmenu -p "Select subtitle language" -l 10)
+
+    # Exit if no selection made
+    if [ -z "$selected_language" ]; then
+        exit 0
+    fi
+
+    # Download video with or without subtitles based on selection
+    download_video "$url" "$download_dir" "$selected_language"
+fi
+
+# Check if download was successful
+if [ $? -eq 0 ]; then
+    notify-send "Download Complete" "Video saved to:\n$download_dir"
+else
+    notify-send "Error" "Download failed"
+    exit 1
+fi

@@ -23,16 +23,16 @@ yt-dlp --list-subs "$VIDEO_URL"
 echo -n "Enter the language code of the subtitle you want to download (e.g., en, es, fr): "
 read -r SUB_LANG
 
-# Extract video title to name the download folder
-VIDEO_TITLE=$(yt-dlp --get-filename -o "%(title)s" "$VIDEO_URL" | sed 's/[^a-zA-Z0-9_-]/_/g')
+# Extract video title to name the download folder (allowing for Chinese and other Unicode characters)
+VIDEO_TITLE=$(yt-dlp --get-filename -o "%(title)s" "$VIDEO_URL")
 TARGET_DIR="$DOWNLOAD_DIR/$VIDEO_TITLE"
 
 # Create target directory if it doesn't exist
 mkdir -p "$TARGET_DIR"
 
-# Download the video and selected subtitles in the highest quality
+# Download the video and selected subtitles with resolution capped at 720p
 echo "Downloading video and subtitles..."
-yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]' \
+yt-dlp -f 'bestvideo[ext=mp4][height<=720]+bestaudio[ext=m4a]/best[ext=mp4][height<=720]' \
        --sub-lang "$SUB_LANG" \
        --write-sub \
        --sub-format "srt" \
@@ -40,4 +40,3 @@ yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]' \
        "$VIDEO_URL"
 
 echo "Download completed! Files saved to $TARGET_DIR"
-
