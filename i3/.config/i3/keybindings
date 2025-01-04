@@ -56,6 +56,11 @@ bindsym $mod+space exec --no-startup-id rofi -show drun
 # Rofi script launcher
 bindsym $mod+p exec --no-startup-id "$HOME/bin/scripts/rofi-script-launcher"
 
+# Text to speech
+bindsym $mod+x exec --no-startup-id "$HOME/bin/scripts/speak-selection"
+
+
+
 # Workspace navigation
 bindsym $mod+ctrl+d workspace next
 bindsym $mod+ctrl+a workspace prev
