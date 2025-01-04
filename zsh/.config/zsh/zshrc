@@ -6,6 +6,7 @@ source $HOME/.config/zsh/variables
 export PATH="$HOME/bin/scripts:$PATH"
 export PATH="$HOME/bin/rofi-scripts:$PATH"
 
+
 # update environment variables
 export QT_QPA_PLATFORMTHEME="qt5ct"
 
