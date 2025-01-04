@@ -1,0 +1,12 @@
+#!/bin/bash
+# Read selected text, or clipboard content if no selection
+text=$(xclip -o -selection primary 2>/dev/null || xclip -o -selection clipboard 2>/dev/null)
+
+# Check if text is empty
+if [ -z "$text" ]; then
+    notify-send "No text selected or in clipboard" "Text-to-speech aborted."
+    exit 1
+fi
+
+# Speak the text
+spd-say "$text"
